@@ -43,6 +43,8 @@ public class SHZoomView extends View{
     private int screenWidth;
     private int screenHeight;
 
+    private int strokeColor;
+
     private Path triPath;
 
     private float scale = 1.7F;
@@ -79,6 +81,16 @@ public class SHZoomView extends View{
 
         screenWidth = context.getResources().getDisplayMetrics().widthPixels;
         screenHeight = context.getResources().getDisplayMetrics().heightPixels;
+
+        strokeColor = 0xFF0099CC;
+    }
+
+    public void setStrokeColor(int color){
+        this.strokeColor = color;
+
+        if(this.strokeColor >> 24 == 0){
+            this.strokeColor = 0xFF000000 | this.strokeColor;
+        }
     }
 
     public void setupCanvas(int size){
@@ -208,7 +220,7 @@ public class SHZoomView extends View{
 
             paint.setShadowLayer(5, 0, 5, 0x88000000);
 
-            paint.setColor(0xFF0099CC);
+            paint.setColor(this.strokeColor);
             paint.setStyle(Paint.Style.STROKE);
             paint.setStrokeWidth(4);
             canvas.drawCircle(centerX, halfCanvasSize + gap, halfCanvasSize - 2, paint);

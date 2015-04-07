@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ZoomLayout">
+        <attr name="zoomScale" format="reference|float" />
+        <attr name="zoomSize" format="reference|dimension" />
+        <attr name="strokeColor" format="reference|color" />
+    </declare-styleable>
+
+</resources>
