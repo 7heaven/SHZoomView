@@ -1,3 +1,5 @@
+[![Build Status](http://img.shields.io/travis/7heaven/SHZoomView.svg)](https://travis-ci.org/7heaven/SHZoomView)
+
 ##SHZoomView
 
 ***
