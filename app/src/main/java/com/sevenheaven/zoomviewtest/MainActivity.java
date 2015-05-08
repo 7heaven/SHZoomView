@@ -21,7 +21,14 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
 
-        setContentView(R.layout.activity_main);
+//        setContentView(R.layout.activity_main);
+
+        MidCircleView view = new MidCircleView(this);
+
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        setContentView(view, layoutParams);
+
     }
 
 
