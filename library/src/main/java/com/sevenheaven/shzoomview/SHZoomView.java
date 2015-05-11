@@ -46,6 +46,7 @@ public class SHZoomView extends View{
     private int strokeColor;
 
     private Path triPath;
+    private Path clipPath;
 
     private float scale = 1.7F;
     private static final int arrowHeight = 10;
@@ -78,6 +79,7 @@ public class SHZoomView extends View{
         gap = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, getResources().getDisplayMetrics());
 
         triPath = new Path();
+        clipPath = new Path();
 
         screenWidth = context.getResources().getDisplayMetrics().widthPixels;
         screenHeight = context.getResources().getDisplayMetrics().heightPixels;
@@ -173,6 +175,10 @@ public class SHZoomView extends View{
 
         if(zoomCanvas != null && zoomBitmap != null){
             zoomCanvas.save();
+            clipPath.reset();
+            clipPath.addCircle(halfCanvasSize, halfCanvasSize, halfCanvasSize, Path.Direction.CW);
+            zoomCanvas.clipPath(clipPath);
+
             zoomCanvas.translate(-this.x, -this.y);
             zoomCanvas.scale(scale, scale, this.x + halfCanvasSize, this.y + halfCanvasSize);
             if(view.getRootView().getDrawingCache() != null){
@@ -208,15 +214,23 @@ public class SHZoomView extends View{
 
             paint.setColor(0xFF000000);
             paint.setStyle(Paint.Style.FILL);
-            canvas.drawCircle(centerX, halfCanvasSize + gap, halfCanvasSize, paint);
+//            canvas.drawCircle(centerX, halfCanvasSize + gap, halfCanvasSize, paint);
 
-            canvas.drawPath(triPath, paint);
+            clipPath.reset();
+            clipPath.addCircle(centerX, halfCanvasSize + gap, halfCanvasSize, Path.Direction.CW);
 
-            paint.setXfermode(xferMode);
+            int clipSave = canvas.save();
+            canvas.clipPath(clipPath);
+
+//            canvas.drawPath(triPath, paint);
+
+//            paint.setXfermode(xferMode);
 
             canvas.drawBitmap(zoomBitmap, gap, gap, paint);
 
-            paint.setXfermode(null);
+//            paint.setXfermode(null);
+
+            canvas.restoreToCount(clipSave);
 
             paint.setShadowLayer(5, 0, 5, 0x88000000);
 
